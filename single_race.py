@@ -11,9 +11,11 @@ def main():
 
     # start race
     race.run_half()
-
-    for cube in race.cubes:
-        print(f"{cube.__class__.__name__} in position {cube.pos}")
+    print("first half")
+    race.print_stats()
+    print("final")
+    race.run_half()
+    race.print_stats()
 
 
 if __name__ == "__main__":
