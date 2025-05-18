@@ -2,7 +2,7 @@
 from . import Cube
 
 class Board:
-    size = 46
+    size = 48
 
     def __init__(self):
         self.spaces = list()
