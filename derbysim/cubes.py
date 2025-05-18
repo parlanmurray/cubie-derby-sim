@@ -10,7 +10,7 @@ class Cube:
     def __init__(self):
         self.stats = Stats()
 
-    def roll(self, above: list, below: list, action_order: int, total_cubes: int):
+    def roll(self, above: list, below: list, action_order: int, total_cubes: int, curr_place: int):
         return random.randrange(1, 3)
 
     def step(self, above: list, below: list, action_order: int, total_cubes: int):
@@ -43,7 +43,7 @@ class Zani(Cube):
     def __repr__(self):
         return f"Zani(pos={self.pos}, skill_proc={self.skill_proc})"
     
-    def roll(self, above, below, action_order, total_cubes):
+    def roll(self, above, below, action_order, total_cubes, curr_place):
         # roll is either 1 or 3
         roll = 2
         while roll == 2:
@@ -102,7 +102,7 @@ class Cantarella(Cube):
 
 
 class Roccia(Cube):
-    def roll(self, above, below, action_order, total_cubes):
+    def roll(self, above, below, action_order, total_cubes, curr_place):
         roll = random.randrange(1, 3)
 
         # if we are the last to move in this round, move 2 extra spaces
@@ -114,7 +114,7 @@ class Roccia(Cube):
 
 
 class Phoebe(Cube):
-    def roll(self, above, below, action_order, total_cubes):
+    def roll(self, above, below, action_order, total_cubes, curr_place):
         roll = random.randrange(1, 3)
 
         # 50% chance to move extra space
@@ -125,7 +125,7 @@ class Phoebe(Cube):
 
 
 class Brant(Cube):
-    def roll(self, above, below, action_order, total_cubes):
+    def roll(self, above, below, action_order, total_cubes, curr_place):
         roll = random.randrange(1, 3)
 
         # if we are moving first, move 2 extra spaces
@@ -139,7 +139,7 @@ class Brant(Cube):
 class Cartetheyia(Cube):
     triggered = False
 
-    def roll(self, above, below, action_order, total_cubes):
+    def roll(self, above, below, action_order, total_cubes, curr_place):
         roll = random.randrange(1, 3)
 
         if self.triggered and random.randrange(0, 99) < 60:
@@ -157,8 +157,8 @@ class Cartetheyia(Cube):
 class Camellya(Cube):
     triggered = False
 
-    def roll(self, above, below, action_order, total_cubes):
-        roll = super().roll(above, below, action_order, total_cubes)
+    def roll(self, above, below, action_order, total_cubes, curr_place):
+        roll = super().roll(above, below, action_order, total_cubes, curr_place)
         if len(above) > 0 and random.randrange(0, 99) < 50:
             self.triggered = True
             self.stats.ability_triggered += 1
@@ -182,8 +182,8 @@ class Jinhsi(Cube):
     
 
 class Carlotta(Cube):
-    def roll(self, above, below, action_order, total_cubes):
-        roll = super().roll(above, below, action_order, total_cubes)
+    def roll(self, above, below, action_order, total_cubes, curr_place):
+        roll = super().roll(above, below, action_order, total_cubes, curr_place)
         if random.randrange(0, 99) < 28:
             self.stats.ability_triggered += 1
             roll = roll * 2
@@ -191,9 +191,9 @@ class Carlotta(Cube):
     
 
 class Calcharo(Cube):
-    def roll(self, above, below, action_order, total_cubes):
-        roll = super().roll(above, below, action_order, total_cubes)
-        if action_order == total_cubes:
+    def roll(self, above, below, action_order, total_cubes, curr_place):
+        roll = super().roll(above, below, action_order, total_cubes, curr_place)
+        if curr_place == total_cubes:
             roll += 3
             self.stats.ability_triggered += 1
         return roll

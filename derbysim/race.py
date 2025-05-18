@@ -36,7 +36,8 @@ class Race:
                 self.board.get_above(cube),
                 self.board.get_below(cube),
                 i + 1,
-                len(self.cubes)
+                len(self.cubes),
+                self.board.get_place(cube)
             )
 
             # pre move
