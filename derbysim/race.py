@@ -56,6 +56,7 @@ class Race:
                     i + 1,
                     len(self.cubes)
                 )
+                race_complete = False
                 for ma in actions:
                     if not ma.carried:
                         ma.subject.stats.steps_base += 1
@@ -64,7 +65,10 @@ class Race:
                     if ma.carrying:
                         ma.subject.stats.steps_carrying_others += 1
                     if self.board.move_cube(ma.subject):
-                        raise RaceCompleteException
+                        race_complete = True
+                # we all cubes being carried need to move before we determine winner
+                if race_complete:
+                    raise RaceCompleteException
 
                 # per step action
                 cube.per_space_action(

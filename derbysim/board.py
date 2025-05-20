@@ -62,7 +62,7 @@ class Board:
     def get_place(self, cube: Cube):
         place = 1
         for space in reversed(self.spaces):
-            for other_cube in space:
+            for other_cube in reversed(space):
                 if id(cube) == id(other_cube):
                     return place
                 else:
@@ -72,6 +72,6 @@ class Board:
     def get_standings(self):
         rv = list()
         for space in reversed(self.spaces):
-            for cube in space:
+            for cube in reversed(space):
                 rv.append(cube)
         return rv
