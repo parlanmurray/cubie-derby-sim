@@ -66,6 +66,7 @@ def main():
 
         race.run_half()
         first_half_standings = race.board.get_standings()
+        race.setup_second_half()
         race.run_half()
         final_standings = race.board.get_standings()
 

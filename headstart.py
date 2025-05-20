@@ -72,6 +72,8 @@ def main():
         race.board.spaces[24] = [calc, jinny]
         race.board.spaces[20] = [carlotta, cammy]
 
+        race.setup_second_half()
+
         race.run_half()
         final_standings = race.board.get_standings()
 

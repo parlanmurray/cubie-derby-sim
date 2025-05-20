@@ -23,6 +23,15 @@ class Race:
         except RaceCompleteException:
             pass
 
+    def setup_second_half(self):
+        # setup next half
+        standings = self.board.get_standings()
+        for i, cube in enumerate(standings):
+            self.board.spaces[cube.pos].remove(cube)
+            new_pos = -(i // -2)
+            cube.pos = int(self.board.size / 2) - new_pos
+            self.board.spaces[cube.pos].insert(0, cube)
+
     def round(self):
         # random action order
         random.shuffle(self.cubes)
